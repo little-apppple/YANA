@@ -62,7 +62,7 @@
 
 ## 开发者
 
-Trae AI & User
+Trae AI & little-apppple
 
 ## 开源协议
 

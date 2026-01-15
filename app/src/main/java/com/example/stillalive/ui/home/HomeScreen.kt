@@ -86,7 +86,7 @@ fun HomeScreen(
                 textAlign = TextAlign.Center
             )
             
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             // 2. Main Content (No Card background)
             Column(
@@ -113,7 +113,7 @@ fun HomeScreen(
                     tint = MaterialTheme.colorScheme.primary
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // "Alive" Text
                 Text(
@@ -163,7 +163,7 @@ fun HomeScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(12.dp))
 
             // 3. Signed In Button Visualization
             Button(

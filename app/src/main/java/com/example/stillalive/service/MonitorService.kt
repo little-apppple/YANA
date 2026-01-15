@@ -11,6 +11,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import android.graphics.BitmapFactory
 import com.example.stillalive.MainActivity
 import com.example.stillalive.R
 import com.example.stillalive.StillAliveApp
@@ -70,9 +71,9 @@ class MonitorService : Service() {
         )
 
         val notification: Notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("活着么 - 安全守护中")
+            .setContentTitle("呀呐YANA - 安全守护中")
             .setContentText("正在监测手机使用状态以自动签到")
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentIntent(pendingIntent)
             .build()
 

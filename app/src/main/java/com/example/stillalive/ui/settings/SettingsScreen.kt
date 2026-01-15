@@ -12,6 +12,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.Font
+import com.example.stillalive.R
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +24,39 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.stillalive.utils.DateUtils
+
+@Composable
+fun SmartTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: @Composable (() -> Unit)? = null,
+    placeholder: @Composable (() -> Unit)? = null,
+    modifier: Modifier = Modifier,
+    singleLine: Boolean = true
+) {
+    var text by remember { mutableStateOf(value) }
+    var isFocused by remember { mutableStateOf(false) }
+
+    // If value changes externally and we are NOT focused, update text.
+    // This handles initial load and background updates without disrupting typing.
+    LaunchedEffect(value) {
+        if (!isFocused && text != value) {
+            text = value
+        }
+    }
+
+    OutlinedTextField(
+        value = text,
+        onValueChange = {
+            text = it
+            onValueChange(it)
+        },
+        label = label,
+        placeholder = placeholder,
+        modifier = modifier.onFocusChanged { isFocused = it.isFocused },
+        singleLine = singleLine
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -122,10 +159,16 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("呀呐YANA", fontWeight = FontWeight.Bold) },
+                title = { 
+                    Text(
+                        "呀呐YANA", 
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily(Font(R.font.zcoolkuaile))
+                    ) 
+                },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.onBackground
+                    containerColor = NavigationBarDefaults.containerColor,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
         },
@@ -154,7 +197,7 @@ fun SettingsScreen(
                     ) {
                         Icon(Icons.Filled.Person, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(16.dp))
-                        OutlinedTextField(
+                        SmartTextField(
                             value = uiState.userName,
                             onValueChange = { viewModel.updateUserName(it) },
                             label = { Text("你的名字") },
@@ -172,7 +215,7 @@ fun SettingsScreen(
                     ) {
                         Icon(Icons.Filled.Home, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(16.dp))
-                        OutlinedTextField(
+                        SmartTextField(
                             value = uiState.contactAddress,
                             onValueChange = { viewModel.updateContactAddress(it) },
                             label = { Text("填写的联系地址") },
@@ -191,7 +234,7 @@ fun SettingsScreen(
                     ) {
                         Icon(Icons.Filled.Edit, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                         Spacer(modifier = Modifier.width(16.dp))
-                        OutlinedTextField(
+                        SmartTextField(
                             value = uiState.welcomeMessage,
                             onValueChange = { viewModel.updateWelcomeMessage(it) },
                             label = { Text("欢迎语") },

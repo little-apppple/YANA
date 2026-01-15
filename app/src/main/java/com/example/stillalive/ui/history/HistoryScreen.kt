@@ -16,6 +16,10 @@ import com.example.stillalive.utils.DateUtils
 
 import androidx.compose.ui.graphics.Color
 
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.Font
+import com.example.stillalive.R
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HistoryScreen(
@@ -30,9 +34,15 @@ fun HistoryScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("呀呐YANA", fontWeight = FontWeight.Bold) },
+                title = { 
+                    Text(
+                        "呀呐YANA", 
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily(Font(R.font.zcoolkuaile))
+                    ) 
+                },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
+                    containerColor = NavigationBarDefaults.containerColor,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )

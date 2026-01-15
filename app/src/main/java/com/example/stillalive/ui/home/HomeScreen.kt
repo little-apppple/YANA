@@ -25,6 +25,10 @@ import androidx.navigation.NavController
 import com.example.stillalive.utils.DateUtils
 import kotlinx.coroutines.launch
 
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.Font
+import com.example.stillalive.R
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
@@ -46,9 +50,15 @@ fun HomeScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("呀呐YANA", fontWeight = FontWeight.Bold) },
+                title = { 
+                    Text(
+                        "呀呐YANA", 
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily(Font(R.font.zcoolkuaile))
+                    ) 
+                },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
+                    containerColor = NavigationBarDefaults.containerColor,
                     titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
             )
@@ -107,11 +117,12 @@ fun HomeScreen(
 
                 // "Alive" Text
                 Text(
-                    text = "又活了一天，真好！",
+                    text = uiState.welcomeMessage.ifBlank { "又活了一天，真好！" },
                     style = MaterialTheme.typography.titleLarge.copy(
                         fontWeight = FontWeight.Bold
                     ),
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.Center
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
